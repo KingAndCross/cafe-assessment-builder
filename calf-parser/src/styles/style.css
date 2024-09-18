@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#app .container:has(#show-editor:checked) .editor-container {
+  display: block;
+}
+
+#app .container:has(#show-editor:checked) .quiz-container {
+  display: none;
+}
+
+/* ===================== */
+/* Editor container */
+/* ===================== */
+
+.editor-container {
+  display: none;
+}

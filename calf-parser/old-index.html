@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/default-theme.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+      crossorigin="anonymous"
+    />
+
+    <title></title>
+  </head>
+  <body style="background-color: #bbb">
+    <div
+      style="
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      "
+      class="btns-wrapper"
+    >
+      <input type="file" name="imgs" id="imgs" multiple />
+      <button id="download">Descargar</button>
+      <button id="render">Render</button>
+    </div>
+    <div
+      id="app"
+      class="quiz-container"
+      style="width: 90%; margin: 0 auto; background-color: #fff"
+    ></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
