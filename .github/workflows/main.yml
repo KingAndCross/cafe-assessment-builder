@@ -38,7 +38,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./cafe-builder
 
       - name: Build
         run: npm run build
