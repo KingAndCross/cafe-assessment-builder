@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     zipInput,
     downloadPDFBtn,
     downloadZipBtn,
-    selectTheme,
     showEditor,
   } = getElements();
 

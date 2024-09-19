@@ -103,12 +103,12 @@ class CafeFileHandler {
 
   // Todo: improve
   #generateCafeFooter() {
-    const specialFooter = `
+    /* const specialFooter = `
     <div style='display:flex; gap: 0.2em' class='special-footer'>
      <p style='font-size:0.7rem'>Creado con CAFE </p>
      <img src="/logo-cafe-small.png" alt="Cafe Logo" />  
     </div>
-`;
+`; */
     return "";
   }
 
@@ -117,9 +117,11 @@ class CafeFileHandler {
       ? ["default-theme"]
       : ["default-theme", cssStyle];
 
+    const basePath = import.meta.env.BASE_URL + "quiz-styles/";
+    console.log(basePath);
     themeNames.forEach((themeName) => {
       const cssLink = iframeDoc.createElement("link");
-      cssLink.href = `src/styles/quiz-styles/${themeName}.css`;
+      cssLink.href = `${basePath}${themeName}.css`;
       cssLink.rel = "stylesheet";
       cssLink.type = "text/css";
       iframeDoc.head.appendChild(cssLink);
