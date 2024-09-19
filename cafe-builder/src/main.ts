@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "section1",
       "section2",
       "section3",
+      "section4",
     ]).innerHTML;
 
     sectionsCheckboxContainer.outerHTML = sectionsCheckBoxes;
