@@ -1,8 +1,41 @@
-const markdownExample = `
-# Title of my test
+export const markdownExample = `
+# Prueba de contenidos 
+## 6° básico
 
-This is some text that goes here and are instructions
+Nombre:
 
+Curso:
+
+> **Instrucciones**  
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
+
+---
+
+#? ¿Cuál es la capital de Chile?
+
+- Santiago
+- Buenos Aires
+- Lima
+
+#? ¿Cuál es la capital de Argentina?
+
+- Santiago
+- Buenos Aires
+- Lima
+
+#? ¿Cuál es la capital de Estados Unidos?
+
+- Washington
+- New York
+- Los Angeles
+- Miami
+
+#? ¿Cómo se llama esta expresión?
+
+- Washington
+- New York
+- Los Angeles
+- Miami
 
 ---
 
@@ -16,59 +49,12 @@ This is some text that goes here and are instructions
 - $$\\frac{2}{5} + \\frac{3}{10}=$$
 - $$\\frac{4}{7} + \\frac{2}{14}=$$
 - $$\\frac{7}{9} + \\frac{5}{18}=$$
-
-#? Que pasa?
-
-+ aa
-+ bb 
-+ cc
-
-
-#? Select the capital of france
-
-
-- London
-- Santiago
-- Roma
-- Berlin
-
+- $$\\frac{7}{9} + \\frac{5}{18}=$$
+{:.col-2 .text-lg}
 ---
 
-#? What is the largest planet in our solar system?  
-- Earth  
-- Mars  
-- Jupiter
+#?? Qué eventos fueron fundamentales para la independencia de Chile?
 
-#? Who wrote the play "Romeo and Juliet"?  
-- William Shakespeare  
-- Charles Dickens  
-- Jane Austen
-
----
-
-#? Which element has the chemical symbol 'O'?  
-- Oxygen  
-- Hydrogen  
-- Nitrogen
-
-#? What is the capital of Japan?  
-- Beijing  
-- Seoul  
-- Tokyo
-
-#? In which year did the Titanic sink?  
-- 1912  
-- 1920  
-- 1935
-
----
-
-
-#? Who painted the Mona Lisa?  
-- Vincent van Gogh  
-- Leonardo da Vinci  
-- Pablo Picasso
+#??? Qué eventos fueron fundamentales para la independencia de Chile?
 
 `;
-
-export default markdownExample;

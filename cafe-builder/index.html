@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CAFE | Custom Assessment Framework for Education</title>
-    <link rel="stylesheet" href="/src/styles/default-theme.css" />
+    <link rel="stylesheet" href="/src/styles/quiz-styles/default-theme.css" />
     <link rel="stylesheet" href="src/styles/output.css" />
     <link rel="stylesheet" href="src/styles/style.css" />
     <link
@@ -12,13 +12,20 @@
       href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
     />
   </head>
-  <body>
-    <div class="flex w-auto my-7 ml-20 gap-8 h-full" id="app">
-      <div class="flex-initial w-1/5">
+  <body class="overflow-hidden">
+    <div class="absolute top-4 right-6 z-10 flex flex-col gap-6">
+      <div class="flex items-center space-x-2 p-1">
+        <p class="text-xl font-bold text-base-content">CAFE</p>
+        <img class="h-8 w-8" src="/logo-cafe-small.png" alt="Cafe Logo" />
+        <span class="badge badge-secondary">demo</span>
+      </div>
+    </div>
+    <div class="relative flex w-auto mt-7 ml-14 gap-8 h-lvh" id="app">
+      <div class="flex-initial w-1/5 h-full">
         <div class="sticky top-0 flex flex-col gap-7 items-center">
           <label class="form-control w-full max-w-xs">
             <div class="label">
-              <span class="label-text">Prueba6b.calf</span>
+              <span class="label-text">Prueba6b</span>
             </div>
             <input
               id="upload-zip-btn"
@@ -37,17 +44,10 @@
               <img src="upload.svg" alt="" />
             </button>
             <hr class="h-px my-1 border-0 bg-neutral-300" />
-            <div class="flex flex-col max-h-24 overflow-x-hidden p-2">
-              <p>> img.png</p>
-              <p>> img1.png</p>
-              <p>> img3.png</p>
-              <p>> img.png</p>
-              <p>> img1.png</p>
-              <p>> img3.png</p>
-              <p>> img.png</p>
-              <p>> img1.png</p>
-              <p>> img3.png</p>
-            </div>
+            <div
+              id="images-names-display"
+              class="flex flex-col max-h-24 overflow-x-hidden p-2"
+            ></div>
           </div>
 
           <label class="form-control w-full max-w-xs">
@@ -63,6 +63,12 @@
               <option value="kids-theme">Kids</option>
             </select>
           </label>
+          <button
+            class="btn btn-primary btn-wide"
+            onclick="my_modal_1.showModal()"
+          >
+            Ensambla tu prueba!
+          </button>
           <div class="join w-full">
             <button
               class="btn btn-outline btn-neutral join-item w-1/2"
@@ -72,33 +78,112 @@
             </button>
             <button
               class="btn btn-outline btn-neutral join-item w-1/2"
-              id="download-calf-btn"
+              id="download-cafe-zip-btn"
             >
-              .calf
+              .zip
             </button>
           </div>
         </div>
       </div>
       <div
-        class="container relative w-3/5 h-4/5 bg-white shadow-md rounded-lg p-5"
+        class="container relative w-3/5 h-4/5 bg-white shadow-md rounded-lg p-5 pt-10"
         id="container"
       >
-        <div class="quiz-container min-h-96 w-full" id="quiz-container"></div>
+        <div
+          class="quiz-container w-full h-full overflow-y-scroll overflow-x-hidden"
+          id="quiz-container"
+        >
+          <div class="h-full cafe-quiz" id="cafe-quiz"></div>
+        </div>
         <div class="editor-container w-full h-full">
           <textarea
-            style="overflow: hidden"
-            class="textarea textarea-ghost w-full min-h-[700px] resize-none overflow-hidden text-base"
-            placeholder="Bio"
+            class="textarea textarea-ghost w-full min-h-[300px] resize-none text-lg text-base-content pt-6 h-full"
+            placeholder="Escribe aquí tu contenido..."
             id="quiz-editor"
-          ></textarea>
+          >
+          </textarea>
         </div>
         <div class="absolute right-4 top-2 z-20">
           <label class="label cursor-pointer gap-6">
-            <span class="label-text">Editor</span>
-            <input type="checkbox" id="show-editor" class="toggle" />
+            <span class="label-text text-sm">Editor</span>
+            <input type="checkbox" id="show-editor" class="toggle toggle-sm" />
           </label>
         </div>
       </div>
+      <aside class="w-1/6 mt-20 mr-4">
+        <h3 class="text-base-content text-lg font-semibold border-b-2 mb-3">
+          Sintaxis
+        </h3>
+        <div class="text-xs flex flex-col gap-4">
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">#?</p>
+            <p>Pregunta genérica</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">#??</p>
+            <p>Pregunta escrita corta</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">#???</p>
+            <p>Pregunta escrita larga</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">---</p>
+            <p>Separación entre secciones</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="text-nowrap p-1 rounded-md bg-neutral-content">
+              ![](img)
+            </p>
+            <p class="">Agrega una imagen al documento</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">></p>
+            <p>Inicio de cuadro de texto</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">$ ... $</p>
+            <p>LaTeX dentro de un párrafo</p>
+          </div>
+          <div class="flex gap-2">
+            <p class="p-1 rounded-md bg-neutral-content">$$ ... $$</p>
+            <p>LaTeX fuera de un párrafo</p>
+          </div>
+        </div>
+      </aside>
     </div>
+    <dialog id="my_modal_1" class="modal">
+      <div class="modal-box w-1/2 max-w-5xl">
+        <h3 class="text-xl text-center font-bold mb-7">Opciones de ensamble</h3>
+        <div class="grid grid-cols-2 w-4/5 mx-auto divide-x">
+          <div class="form-control pr-12">
+            <h4 class="text-md text-center font-semibold mb-4">
+              Secciones a mostrar
+            </h4>
+            <div id="sectionsCheckbox"></div>
+          </div>
+
+          <div class="form-control pl-12">
+            <h4 class="text-md text-center font-semibold mb-4">
+              Opciones generales
+            </h4>
+            <label class="label cursor-pointer">
+              <span class="label-text">Alternativas al azar</span>
+              <input type="checkbox" class="checkbox" />
+            </label>
+            <label class="label cursor-pointer">
+              <span class="label-text">Preguntas desordenadas</span>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </div>
+        </div>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
   </body>
+  <script src="src/main.ts" type="module"></script>
 </html>

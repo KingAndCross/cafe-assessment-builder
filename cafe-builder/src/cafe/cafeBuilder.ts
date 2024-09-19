@@ -13,18 +13,40 @@ class CafeBuilder {
   parser: CafeParser;
   assembler: CafeAssembler;
   fileHandler: CafeFileHandler;
-  markdownContent: string;
+  markdownContent?: string;
   hastTree: HastRoot | undefined;
 
-  constructor(markdownContent: string) {
+  constructor(markdownContent?: string) {
     this.parser = new CafeParser();
     this.assembler = new CafeAssembler();
     this.fileHandler = new CafeFileHandler();
     this.markdownContent = markdownContent;
   }
 
-  async initialize() {
+  async initialize(markdownContent?: string) {
+    if (!this.markdownContent && !markdownContent) {
+      throw Error("No markdown content provided");
+    }
+    if (markdownContent) {
+      this.markdownContent = markdownContent;
+    }
+    this.hastTree = await this.parser.parseToHastTree(this.markdownContent!);
+  }
+
+  async changeMarkdown(markdownContent: string) {
+    this.markdownContent = markdownContent;
     this.hastTree = await this.parser.parseToHastTree(this.markdownContent);
+  }
+
+  async readZipFile(zipFile: File) {
+    await this.fileHandler._readZipFile(zipFile);
+    const markdownContent = await this.fileHandler.zip
+      .file("quiz.md")
+      ?.async("string");
+    if (!markdownContent) {
+      throw new Error("No markdown content found in zip file");
+    }
+    await this.initialize(markdownContent);
   }
 
   assemble(assembleConfig: AssembleConfig) {
@@ -44,6 +66,13 @@ class CafeBuilder {
     );
     const html = this.parser.formatAndStringify(hastTreeWithImages);
     return html;
+  }
+  async downloadZipFile(quizName?: string) {
+    if (!this.markdownContent) {
+      throw new Error("No markdown content provided");
+    }
+    quizName ??= "quiz";
+    this.fileHandler._downloadZipFile(this.markdownContent, quizName);
   }
 }
 
