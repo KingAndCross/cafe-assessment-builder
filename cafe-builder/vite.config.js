@@ -1,4 +1,4 @@
-export default {
+export default defineConfig({
   base: "/cafe-assessment-builder/",
   optimizeDeps: {
     esbuildOptions: {
@@ -8,4 +8,4 @@ export default {
   build: {
     target: "esnext",
   },
-};
+});
