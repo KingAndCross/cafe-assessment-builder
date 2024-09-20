@@ -3,6 +3,7 @@
 /* ===================== */
 
 .cafe-quiz {
+  counter-reset: item-counter section-counter;
   line-height: 1.5;
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -17,7 +18,6 @@
 
 .cafe-quiz {
   position: relative;
-  counter-reset: item-counter;
   font-size: 16px;
 }
 
@@ -40,27 +40,51 @@ Header styling
 =================
 */
 
-.cafe-quiz .header {
+.cafe-quiz .cafe-header {
   margin: 2em 2em;
 }
 
-.cafe-quiz .header h1 {
+.cafe-quiz .cafe-header h1 {
   font-size: 2em;
   text-align: center;
   font-weight: bold;
 }
 
-.cafe-quiz .header :is(h2, h3) {
+.cafe-quiz .cafe-header :is(h2, h3) {
   font-size: 1.3em;
 }
 
-.cafe-quiz .header h2 {
+.cafe-quiz .cafe-header h2 {
   text-align: center;
 }
 
-.cafe-quiz .header p:has(+ :not(p)),
-.cafe-quiz .header :is(h1, h2, h3, h4):has(+ :not(:is(h1, h2, h3, h4))) {
+.cafe-quiz .cafe-header p:has(+ :not(p)),
+.cafe-quiz .cafe-header :is(h1, h2, h3, h4):has(+ :not(:is(h1, h2, h3, h4))) {
   margin-bottom: 1em;
+}
+
+/* ===================== */
+/* Section styling */
+/* ===================== */
+
+.cafe-quiz .cafe-assessment-section {
+  position: relative;
+}
+
+.cafe-quiz .cafe-assessment-section h2.cafe-section-heading {
+  position: relative;
+  font-size: 1.1em;
+  margin-left: 2em;
+  margin-bottom: 1em;
+  counter-increment: section-counter;
+  counter-set: item-counter 0;
+}
+
+.cafe-quiz .cafe-assessment-section h2.cafe-section-heading::before {
+  position: absolute;
+  font-weight: bold;
+  content: counter(section-counter, upper-roman) ". ";
+  left: -1em;
 }
 
 /* ===================== */
@@ -73,6 +97,7 @@ Header styling
   break-inside: avoid;
   font-size: 1em;
   margin-bottom: 2em;
+  margin-left: 2em;
 }
 
 .cafe-quiz .cafe-assessment-item::before {
@@ -81,9 +106,7 @@ Header styling
   left: 1em;
 }
 
-.cafe-quiz
-  .cafe-assessment-item
-  > h3:is(.question, .medium-question, .long-question) {
+.cafe-quiz .cafe-assessment-item > h3[class^="cafe-question-heading-"] {
   margin-left: 2em;
   margin-bottom: 0.8em;
   font-weight: normal;
@@ -111,27 +134,18 @@ Header styling
 
 /* Answer boxes */
 
-.cafe-quiz .cafe-assessment-item .answer-box {
+.cafe-quiz .cafe-assessment-item .cafe-answerbox {
   --color: #ccc;
   height: 5em;
   width: 90%;
   border: 1px solid var(--color);
   border-radius: 10px;
   margin: auto;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    transparent 90%,
-    var(--color) 90%,
-    var(--color) 92%,
-    transparent 92%
-  );
-  background-size: 100% 1em;
-  background-clip: content-box;
-  padding: 0.9em 1em;
 }
-
-.cafe-quiz .cafe-assessment-item .answer-box.long-answer {
+.cafe-quiz
+  .cafe-assessment-item
+  .cafe-question-heading-CR-long
+  ~ .cafe-answerbox {
   height: 30em;
 }
 

@@ -8,11 +8,21 @@ import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
 import remarkAttributeList from "remark-attribute-list";
 
-import transformSpecialHeadings from "./cafe-plugins/transformSpecialHeadings";
+import {
+  transformSpecialHeadings,
+  transformSectionHeadings,
+} from "./cafe-plugins/transformSpecialHeadings";
 import {
   wrapAssessmentSections,
   wrapAssessmentItems,
 } from "./cafe-plugins/wrapInSections";
+
+const cafePlugins = [
+  transformSpecialHeadings,
+  transformSectionHeadings,
+  wrapAssessmentItems,
+  wrapAssessmentSections,
+];
 
 const preset: Preset = {
   plugins: [
@@ -21,9 +31,7 @@ const preset: Preset = {
     remarkGfm,
     remarkMath,
     remarkRehype,
-    transformSpecialHeadings,
-    wrapAssessmentItems,
-    wrapAssessmentSections,
+    ...cafePlugins,
     rehypeFormat,
     rehypeKatex,
     rehypeStringify,

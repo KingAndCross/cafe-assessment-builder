@@ -5,6 +5,12 @@ import { getOnlyElementsChildren } from "../../utils/utils";
 import { h } from "hastscript";
 import { selectAll } from "hast-util-select";
 
+import {
+  specialHeadingsClassNames,
+  choicesClassName,
+  answerBoxClassName,
+} from "../../cafe-config/cafeConstants";
+
 function formatItems(
   parentElement: HastElement,
   structureConditions: StructureCondition[],
@@ -18,10 +24,11 @@ function formatItems(
 }
 
 function formatMCItems(parentElement: HastElement) {
+  const genericQuestionClass = specialHeadingsClassNames["#?"];
   return formatItems(
     parentElement,
     [
-      [{ className: "question" }, 0],
+      [{ className: genericQuestionClass }, 0],
       [["ol", "ul"], -1],
     ],
     (children) => {
@@ -34,7 +41,7 @@ function formatMCItems(parentElement: HastElement) {
       ];
       if (conditions.every((condition) => condition)) {
         lastChildren.tagName = "ol";
-        lastChildren.properties.className = "calf-MC-item-choices";
+        lastChildren.properties.className = choicesClassName;
       }
     }
   );
@@ -42,15 +49,14 @@ function formatMCItems(parentElement: HastElement) {
 
 // constructed response (CR) items
 function formatCRItems(parentElement: HastElement) {
+  const { "#??": mediumQuestion, "#???": longQuestion } =
+    specialHeadingsClassNames;
+
   return formatItems(
     parentElement,
-    [[{ className: ["medium-question", "long-question"] }, 0]],
+    [[{ className: [mediumQuestion, longQuestion] }, 0]],
     (children) => {
-      const answerClass =
-        children[0].properties.className === "medium-question"
-          ? "medium-answer"
-          : "long-answer";
-      children.push(h(".answer-box", { className: answerClass }));
+      children.push(h("div", { className: answerBoxClassName }));
     }
   );
 }

@@ -1,24 +1,18 @@
 import type { Root as HastRoot, Element as HastElement } from "hast";
 import { visitHastElementChildren } from "../../utils/utils";
 import { isElement } from "hast-util-is-element";
+import { matches } from "hast-util-select";
+import {
+  specialHeadingsClassNames,
+  SpecialHeadings,
+  sectionHeadingClassName,
+} from "../../cafe-config/cafeConstants";
 
 interface ParagraphNode extends HastElement {
   children: [{ type: "text"; value: string }];
 }
 
-type SpecialHeadings = {
-  "#?": string;
-  "#??": string;
-  "#???": string;
-  "#!": string;
-};
-
-const specialHeadings: SpecialHeadings = {
-  "#?": "question",
-  "#??": "medium-question",
-  "#???": "long-question",
-  "#!": "indication",
-};
+const specialHeadings = specialHeadingsClassNames;
 
 const transformSpecialHeadings = () => (tree: HastRoot) => {
   visitHastElementChildren(tree, (node) => {
@@ -28,7 +22,28 @@ const transformSpecialHeadings = () => (tree: HastRoot) => {
   });
 };
 
-export default transformSpecialHeadings;
+/* 
+Add class to the headings after the first hr. All the headings should be h2
+ */
+const transformSectionHeadings = () => (tree: HastRoot) => {
+  let firstHrFound = false;
+  visitHastElementChildren(tree, (node) => {
+    // skip all until the first hr is found
+    if (!firstHrFound) {
+      if (node.tagName === "hr") {
+        firstHrFound = true;
+      }
+      return;
+    }
+    // add the class to the headings and normalize them to h2
+    if (matches("h1, h2", node)) {
+      node.tagName = "h2";
+      node.properties.className = sectionHeadingClassName;
+    }
+  });
+};
+
+export { transformSpecialHeadings, transformSectionHeadings };
 
 /* =============================== */
 

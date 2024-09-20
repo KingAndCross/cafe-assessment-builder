@@ -1,39 +1,34 @@
 import { createWrapInSectionsPlugin } from "./wrapperElementsUtility";
-import { isElement } from "hast-util-is-element";
+import { specialHeadingsClassNames } from "../../cafe-config/cafeConstants";
+
+const itemsSelector = Object.values(specialHeadingsClassNames)
+  .map((value) => `h3.${value}`)
+  .join(", ");
 
 const wrapAssessmentSections = createWrapInSectionsPlugin(
   {
-    delimeterTagName: "hr",
+    delimiterNodeSelector: "h2.cafe-section-heading",
+    closeNodeSelector: "hr",
     sectionSelector: "section.cafe-assessment-section",
-    keepNode: false,
+    alwaysOpen: true,
+    keepClosingNode: false,
+    startOpen: true,
     createId: true,
   },
   (sections) => {
-    sections[0].properties = { className: "header" };
+    sections[0].properties = { className: "cafe-header" };
   }
 );
 
 const wrapAssessmentItems = createWrapInSectionsPlugin(
   {
-    delimeterTagName: "h3",
-    closeTagName: "hr",
+    delimiterNodeSelector: itemsSelector,
+    closeNodeSelector: "hr, h2.cafe-section-heading",
     sectionSelector: "section.cafe-assessment-item",
-    keepNode: true,
+    keepClosingNode: true,
     createId: true,
   },
-  (sections) => {
-    if (sections.length > 0) {
-      const [header, ...items] = sections;
-
-      if (header.children) {
-        const elementChildren = header.children.filter((element) =>
-          isElement(element)
-        );
-
-        sections.splice(0, sections.length, ...elementChildren, ...items);
-      }
-    }
-  }
+  (_) => {}
 );
 
 export { wrapAssessmentSections, wrapAssessmentItems };

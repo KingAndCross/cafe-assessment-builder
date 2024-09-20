@@ -10,6 +10,7 @@ Curso:
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
 
 ---
+# Esta sección tiene título
 
 #? ¿Cuál es la capital de Chile?
 
@@ -23,12 +24,17 @@ Curso:
 - Buenos Aires
 - Lima
 
+---
+
 #? ¿Cuál es la capital de Estados Unidos?
 
 - Washington
 - New York
 - Los Angeles
 - Miami
+
+## Esta sección tiene título y cierre implícito
+
 
 #? ¿Cómo se llama esta expresión?
 
@@ -53,8 +59,9 @@ Curso:
 {:.col-2 .text-lg}
 ---
 
-#?? Qué eventos fueron fundamentales para la independencia de Chile?
+#?? Cuéntame algo
 
 #??? Qué eventos fueron fundamentales para la independencia de Chile?
+
 
 `;
