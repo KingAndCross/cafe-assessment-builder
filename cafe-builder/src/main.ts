@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const parsedContent = await cafeQuiz.toHtml();
   quizPreview.innerHTML = String(parsedContent);
 
+  console.log(cafeQuiz.hastTreeHandler.getItems());
+
   showEditor.addEventListener("change", async () => {
     if (!showEditor.checked) {
       await cafeQuiz.changeMarkdown(quizEditor.value);

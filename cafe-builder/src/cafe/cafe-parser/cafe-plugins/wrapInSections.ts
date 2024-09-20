@@ -1,5 +1,9 @@
 import { createWrapInSectionsPlugin } from "./wrapperElementsUtility";
-import { specialHeadingsClassNames } from "../../cafe-config/cafeConstants";
+import {
+  specialHeadingsClassNames,
+  sectionHeadingClassName,
+  sectionClassName,
+} from "../../cafe-config/cafeConstants";
 
 const itemsSelector = Object.values(specialHeadingsClassNames)
   .map((value) => `h3.${value}`)
@@ -7,9 +11,9 @@ const itemsSelector = Object.values(specialHeadingsClassNames)
 
 const wrapAssessmentSections = createWrapInSectionsPlugin(
   {
-    delimiterNodeSelector: "h2.cafe-section-heading",
+    delimiterNodeSelector: `h2.${sectionHeadingClassName}`,
     closeNodeSelector: "hr",
-    sectionSelector: "section.cafe-assessment-section",
+    sectionSelector: `section.${sectionClassName}`,
     alwaysOpen: true,
     keepClosingNode: false,
     startOpen: true,

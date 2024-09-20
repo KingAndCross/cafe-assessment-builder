@@ -1,7 +1,5 @@
 // CAFE Custom Assessment Framework for Education
-
-import type { Root as HastRoot } from "hast";
-
+import { CafeHastHandler } from "./cafe-hast-tree-handler/cafeHastTreeHandler";
 import { CafeParser } from "./cafe-parser/cafeParser";
 import { CafeAssembler, AssembleConfig } from "./cafe-assembler/cafeAssembler";
 import {
@@ -14,28 +12,32 @@ class CafeBuilder {
   assembler: CafeAssembler;
   fileHandler: CafeFileHandler;
   markdownContent?: string;
-  hastTree: HastRoot | undefined;
+  hastTreeHandler: CafeHastHandler;
 
   constructor(markdownContent?: string) {
     this.parser = new CafeParser();
     this.assembler = new CafeAssembler();
     this.fileHandler = new CafeFileHandler();
+    this.hastTreeHandler = new CafeHastHandler();
     this.markdownContent = markdownContent;
   }
 
   async initialize(markdownContent?: string) {
-    if (!this.markdownContent && !markdownContent) {
+    await this.setHastTree(markdownContent);
+  }
+
+  async setHastTree(markdownContent?: string) {
+    const markdownToParse = markdownContent ?? this.markdownContent;
+    if (markdownToParse === undefined) {
       throw Error("No markdown content provided");
     }
-    if (markdownContent) {
-      this.markdownContent = markdownContent;
-    }
-    this.hastTree = await this.parser.parseToHastTree(this.markdownContent!);
+    const newHastTree = await this.parser.parseToHastTree(markdownToParse);
+    this.hastTreeHandler.setHastTree(newHastTree);
   }
 
   async changeMarkdown(markdownContent: string) {
     this.markdownContent = markdownContent;
-    this.hastTree = await this.parser.parseToHastTree(this.markdownContent);
+    this.setHastTree(markdownContent);
   }
 
   async readZipFile(zipFile: File) {
@@ -50,18 +52,18 @@ class CafeBuilder {
   }
 
   assemble(assembleConfig: AssembleConfig) {
-    if (!this.hastTree) {
+    if (!this.hastTreeHandler) {
       throw new Error("Hast tree not initialized");
     }
-    this.assembler.assemble(this.hastTree, assembleConfig);
+    this.assembler.assemble(this.hastTreeHandler.getHastTree(), assembleConfig);
   }
 
   async toHtml() {
-    if (!this.hastTree) {
+    if (!this.hastTreeHandler) {
       throw new Error("Hast tree not initialized");
     }
     const hastTreeWithImages = await displayImageFromZip(
-      this.hastTree,
+      this.hastTreeHandler.getHastTree(),
       this.fileHandler.zip
     );
     const html = this.parser.formatAndStringify(hastTreeWithImages);

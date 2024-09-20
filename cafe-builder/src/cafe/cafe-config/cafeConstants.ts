@@ -14,13 +14,16 @@ const specialHeadingsClassNames: SpecialHeadings = {
 };
 
 const choicesClassName = "cafe-MC-item-choices";
-const sectionHeadingClassName = "cafe-section-heading";
 const answerBoxClassName = "cafe-answerbox";
+
+const sectionHeadingClassName = "cafe-section-heading";
+const sectionClassName = "cafe-assessment-section";
 
 export {
   specialHeadingsClassNames,
   choicesClassName,
   sectionHeadingClassName,
   answerBoxClassName,
+  sectionClassName,
 };
 export type { SpecialHeadings };
