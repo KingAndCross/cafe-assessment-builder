@@ -1,5 +1,5 @@
 import type { Element as HastElement, Root as HastRoot } from "hast";
-import { selectAll, matches } from "hast-util-select";
+import { select, selectAll, matches } from "hast-util-select";
 import { isElement } from "hast-util-is-element";
 import _ from "lodash";
 import { ModifyItemsOptions, modifySections } from "./assembleUtils";
@@ -8,6 +8,7 @@ import { AssembleConfig } from "./cafeAssembler";
 import {
   choicesClassName,
   sectionClassName,
+  sectionHeadingClassName,
 } from "../cafe-config/cafeConstants";
 /* ============================================ */
 
@@ -47,8 +48,14 @@ function randomizeItemsInSections(tree: HastElement | HastRoot) {
     throw new Error("No sections found");
   }
   sections.forEach((section) => {
-    const items = selectAll(`.cafe-assessment-item`, section) as HastElement[];
-    section.children = _.shuffle(items);
+    let items = selectAll(`.cafe-assessment-item`, section) as HastElement[];
+    const heading = select(`.${sectionHeadingClassName}`, section);
+    if (heading) {
+      items = _.shuffle(items);
+      section.children = [heading, ...items];
+    } else {
+      section.children = _.shuffle(items);
+    }
   });
 }
 
@@ -60,12 +67,21 @@ function selectSections(
     throw new Error("sectionsToKeep must be an array of section numbers");
   }
   let currSection = -1;
-  tree.children = tree.children.filter((node) => {
-    if (matches(`.${sectionClassName}`, node)) {
+  tree.children.forEach((node) => {
+    if (matches(`.${sectionClassName}`, node) && isElement(node)) {
       currSection++;
-      return sectionsToKeep.includes(String(currSection));
+      if (!sectionsToKeep.includes(String(currSection))) {
+        const classList = _.concat(
+          _.castArray(node.properties.className),
+          "cafe-hidden-element"
+        ) as string[];
+        node.properties.className = classList;
+      } else {
+        node.properties.className = _.castArray(
+          node.properties.className
+        ).filter((c) => c !== "cafe-hidden-element") as string[];
+      }
     }
-    return true;
   });
 }
 

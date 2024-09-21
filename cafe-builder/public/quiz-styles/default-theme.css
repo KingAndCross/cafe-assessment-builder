@@ -241,6 +241,15 @@ Blockquote styling
 }
 
 /* ========================== */
+/* Hidden */
+/* ========================== */
+
+.cafe-hidden-element {
+  display: none;
+  visibility: hidden;
+}
+
+/* ========================== */
 /* Utils styling */
 /* ========================== */
 
