@@ -1,8 +1,8 @@
 import type { Root as HastRoot, Element as HastElement } from "hast";
-import { visit } from "unist-util-visit";
 import { filter } from "unist-util-filter";
-
+import { selectAll } from "hast-util-select";
 import JSZip from "jszip";
+import _ from "lodash";
 
 // TODO: fix the code to allow for repeated images
 
@@ -30,15 +30,13 @@ async function addImagesToZip(images: File[], zip: JSZip) {
 
 function extractImageNodes(hastTree: HastRoot): Map<string, HastElement> {
   const imgElementsMap = new Map<string, HastElement>();
-
-  visit(hastTree, "element", (node: HastElement) => {
-    if (node.tagName === "img") {
-      const src = node.properties?.src;
-      const srcFileName =
-        typeof src === "string" && src.split("/").pop()?.split(".")[0];
-      if (srcFileName) {
-        imgElementsMap.set(srcFileName, node);
-      }
+  const imgElements = selectAll("img", hastTree) as HastElement[];
+  imgElements.forEach((node) => {
+    const src = node.properties?.src;
+    const srcFileName =
+      typeof src === "string" && src.split("/").pop()?.split(".")[0];
+    if (srcFileName) {
+      imgElementsMap.set(srcFileName, node);
     }
   });
   return imgElementsMap;

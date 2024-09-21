@@ -1,4 +1,4 @@
-import { AssembleConfig } from "./cafe/cafe-assembler/cafeAssembler";
+import { AssembleConfig } from "../cafe/cafe-assembler/cafeAssembler";
 
 function getElements() {
   const quizEditor = document.getElementById(

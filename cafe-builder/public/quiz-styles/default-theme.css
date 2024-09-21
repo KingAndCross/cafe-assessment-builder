@@ -20,6 +20,18 @@
   margin: 0;
 }
 
+.cafe-quiz :is(ul, ol) {
+  padding: initial;
+  padding-left: 2em;
+}
+
+.cafe-quiz ul {
+  list-style: disc;
+}
+.cafe-quiz ol {
+  list-style: decimal;
+}
+
 .special-footer {
   display: none;
 }
@@ -121,11 +133,19 @@ Header styling
 
 /* choices */
 
-.cafe-quiz .cafe-assessment-item ol {
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices {
   list-style: none;
   counter-reset: choice-counter;
+  margin-top: 0.5em;
 }
-.cafe-quiz .cafe-assessment-item ol li {
+
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices:has(> li > img) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices li {
   counter-increment: choice-counter;
   display: list-item;
   position: relative;
@@ -133,13 +153,7 @@ Header styling
   margin-bottom: 0.3em;
 }
 
-@media print {
-  .cafe-quiz .cafe-assessment-item ol li {
-    margin-left: 0em;
-  }
-}
-
-.cafe-quiz .cafe-assessment-item ol li::before {
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices li::before {
   content: counter(choice-counter, lower-alpha) ")";
   position: absolute;
   left: -1.4em;

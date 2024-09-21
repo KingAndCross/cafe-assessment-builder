@@ -27,9 +27,9 @@ const cafePlugins = [
 const preset: Preset = {
   plugins: [
     remarkParse,
-    remarkAttributeList,
     remarkGfm,
     remarkMath,
+    remarkAttributeList,
     remarkRehype,
     ...cafePlugins,
     rehypeFormat,

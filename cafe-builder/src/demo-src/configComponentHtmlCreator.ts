@@ -1,4 +1,4 @@
-import { CafeBuilder } from "./cafe/cafeBuilder";
+import { CafeBuilder } from "../cafe/cafeBuilder";
 
 export function createSectionsCheckBoxes(cafeQuiz: CafeBuilder): void {
   const sectionsCheckboxContainer =

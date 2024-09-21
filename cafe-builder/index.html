@@ -17,7 +17,7 @@
       href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
     />
   </head>
-  <body class="overflow-hidden">
+  <body class="overflow-x-hidden">
     <div class="absolute top-4 right-6 z-10 flex flex-col gap-6">
       <div class="flex items-center space-x-2 p-1">
         <p class="text-xl font-bold text-base-content">CAFE</p>
@@ -26,41 +26,80 @@
       </div>
     </div>
 
-    <div class="relative flex w-auto mt-16 ml-8 gap-8 h-lvh" id="app">
+    <div
+      class="relative flex w-auto pt-10 pl-8 gap-8 h-lvh box-border"
+      id="app"
+    >
       <!-- sidebar -->
-      <div class="flex-initial w-1/6 h-full">
-        <div class="sticky top-0 flex flex-col gap-7 items-center">
-          <label class="form-control w-full max-w-xs">
-            <div class="label">
-              <span class="label-text">Sube tu archivo .zip</span>
-            </div>
-            <input
-              id="upload-zip-btn"
-              type="file"
-              class="file-input file-input-bordered file-input-xs"
-            />
-          </label>
+      <div class="flex-initial w-1/6 h-2/3">
+        <div class="sticky top-0 flex flex-col">
+          <!-- Sube tu archivo o ve un ejemplo -->
+          <div class="relative flex gap-2 -left-4">
+            <span
+              class="-z-10 w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-white"
+              >1</span
+            >
+            <h3 class="relative text-base-content text-sm border-b-2 mb-1">
+              Comienza con un proyecto
+            </h3>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="btn btn-primary flex justify-between rounded-lg"
+              onclick="document.getElementById('upload-zip-btn').click();"
+            >
+              <img class="" src="/upload-icon.svg" alt="" />
+            </button>
+            <button
+              class="btn flex justify-between rounded-lg"
+              onclick="my_modal_2.showModal()"
+            >
+              Ve un ejemplo
+            </button>
+          </div>
 
+          <input
+            id="upload-zip-btn"
+            type="file"
+            class="file-input file-input-bordered file-input-xs hidden"
+          />
+          <!-- Imágenes -->
+          <div class="relative flex gap-2 -left-4 mt-7">
+            <span
+              class="-z-10 w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-white"
+              >2</span
+            >
+            <h3 class="relative text-base-content text-sm border-b-2 mb-1">
+              Sube tus imágenes
+            </h3>
+          </div>
           <div class="container bg-base-200 p-2 rounded-lg">
             <input id="images-input" type="file" class="hidden" multiple />
             <button
               class="btn btn-block btn-ghost flex justify-between rounded-sm"
               onclick="document.getElementById('images-input').click();"
             >
-              <h3 class="text-lg">Imágenes</h3>
+              <h3 class="text-sm">Imágenes</h3>
               <img src="upload.svg" alt="" />
             </button>
             <hr class="h-px my-1 border-0 bg-neutral-300" />
-            <div
+            <ul
               id="images-names-display"
-              class="flex flex-col max-h-24 overflow-x-hidden p-2"
-            ></div>
+              class="list-none flex flex-col max-h-24 overflow-x-hidden p-2"
+            ></ul>
           </div>
 
+          <!-- Selecciona un tema -->
+          <div class="relative flex gap-2 -left-4 mt-7">
+            <span
+              class="-z-10 w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-white"
+              >3</span
+            >
+            <h3 class="relative text-base-content text-sm border-b-2 mb-1">
+              Selecciona un tema
+            </h3>
+          </div>
           <label class="form-control w-full max-w-xs">
-            <div class="label">
-              <span class="label-text">Selecciona un tema</span>
-            </div>
             <select
               class="select select-bordered w-full max-w-xs"
               id="current-theme"
@@ -69,13 +108,33 @@
               <option value="modern-theme">Moderno</option>
             </select>
           </label>
-          <button
-            id="open-assemble-btn"
-            class="btn btn-primary"
-            onclick="my_modal_1.showModal()"
-          >
-            Ensambla tu prueba!
-          </button>
+
+          <!-- Ensambla la prueba -->
+          <div class="relative flex gap-2 -left-4 mt-7">
+            <span
+              class="absolute w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-white"
+              >4</span
+            >
+            <button
+              id="open-assemble-btn"
+              class="btn btn-primary m-auto"
+              onclick="my_modal_1.showModal()"
+            >
+              Ensambla tu prueba!
+            </button>
+          </div>
+
+          <!-- Descarga -->
+          <div class="relative flex gap-2 -left-4 mt-7">
+            <span
+              class="-z-10 w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-white"
+              >5</span
+            >
+            <h3 class="relative text-base-content text-sm border-b-2 mb-1">
+              Descarga !
+            </h3>
+          </div>
+
           <div class="join w-full">
             <button
               class="btn btn-outline btn-neutral join-item w-1/2"
@@ -121,7 +180,7 @@
         </div>
       </div>
 
-      <aside class="w-1/6 mt-20 mr-4">
+      <aside class="w-1/6 mt-20 mr-4 h-2/3">
         <h3 class="text-base-content text-lg font-semibold border-b-2 mb-3">
           Sintaxis
         </h3>
@@ -163,7 +222,11 @@
         </div>
       </aside>
     </div>
-    <!-- modal -->
+
+    <!-- modales  -->
+
+    <!-- modales 1 ensamble -->
+
     <dialog id="my_modal_1" class="modal">
       <div class="modal-box w-1/2 max-w-5xl">
         <h3 class="text-xl text-center font-bold mb-7">Opciones de ensamble</h3>
@@ -192,6 +255,32 @@
         <div class="modal-action">
           <form method="dialog">
             <button class="btn btn-primary" id="assemble-btn">Ensamblar</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- modal 2 ejemplos -->
+
+    <dialog id="my_modal_2" class="modal">
+      <div class="modal-box">
+        <h3 class="text-xl text-center font-bold mb-7">
+          Ejemplos de proyectos
+        </h3>
+        <form method="dialog">
+          <div class="flex flex-col">
+            <button id="example-cultura" class="btn btn-link btn-lg">
+              Cultura General
+            </button>
+            <button id="example-paes" class="btn btn-link btn-lg">
+              PAES m1
+            </button>
+          </div>
+        </form>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn btn-primary">Cerrar</button>
           </form>
         </div>
       </div>

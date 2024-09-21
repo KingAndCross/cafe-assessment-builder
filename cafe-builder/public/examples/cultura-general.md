@@ -1,6 +1,4 @@
-export const markdownExample = `
 # Prueba de cultura general
-## 6° básico
 
 Nombre:
 
@@ -113,7 +111,11 @@ Curso:
 
 ## Preguntas de desarrollo
 
-#?? Escribe una breve definición de "democracia".
+#?? ¿Qué concepción de la democracia está presente en el siguiente texto?
+
+> #### Democracia:
+>
+> "La democracia es el gobierno del pueblo, por el pueblo y para el pueblo." Esta célebre frase de Abraham Lincoln destaca los principios fundamentales del sistema democrático, donde los ciudadanos ejercen su soberanía mediante la elección de sus representantes. La democracia no es solo una forma de gobierno, sino un conjunto de valores y prácticas que protegen la libertad, los derechos humanos, y promueven la igualdad ante la ley. Los procesos democráticos permiten la participación ciudadana activa y la rendición de cuentas por parte de los líderes políticos."
 
 #?? Describe brevemente la función del sistema circulatorio en el cuerpo humano.
 
@@ -123,6 +125,6 @@ Curso:
 
 #??? Explica los principales eventos que llevaron al descubrimiento de América en 1492.
 
-#??? Analiza las causas y consecuencias de la Primera Guerra Mundial.
+---
 
-`;
+#??? Analiza las causas y consecuencias de la Primera Guerra Mundial.

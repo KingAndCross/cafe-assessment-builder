@@ -1,7 +1,7 @@
 import { CafeBuilder } from "./cafe/cafeBuilder";
-import { markdownExample } from "./markdownExample";
-import { getElements, createAssemblerConfig } from "./demoFunctions";
-import { createSectionsCheckBoxes } from "./configComponentHtmlCreator";
+import { getElements, createAssemblerConfig } from "./demo-src/demoFunctions";
+import { createSectionsCheckBoxes } from "./demo-src/configComponentHtmlCreator";
+import { loadExamples } from "./demo-src/loadExamples";
 // npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch
 
 let cafeQuiz: CafeBuilder;
@@ -20,30 +20,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     openAssembleBtn,
   } = getElements();
 
-  quizEditor.value = markdownExample;
-  cafeQuiz = new CafeBuilder(markdownExample);
+  const newQuiz = await loadExamples("./examples/cultura-general.md");
+  cafeQuiz = newQuiz;
   await cafeQuiz.initialize();
   const parsedContent = await cafeQuiz.toHtml();
   quizPreview.innerHTML = String(parsedContent);
+  displayImagesNames();
+  quizEditor.value = cafeQuiz.markdownContent!;
 
   selectTheme.addEventListener("change", function () {
     const themeLink = document.getElementById("theme-link")! as HTMLLinkElement;
     themeLink.href = `quiz-styles/${selectTheme.value}.css`;
   });
 
+  quizEditor.addEventListener("change", async () => {
+    await cafeQuiz.changeMarkdown(quizEditor.value);
+  });
+
   showEditor.addEventListener("change", async () => {
-    if (!showEditor.checked) {
-      await cafeQuiz.changeMarkdown(quizEditor.value);
-      const parsedContent = await cafeQuiz.toHtml();
-      quizPreview.innerHTML = String(parsedContent);
-    }
+    const parsedContent = await cafeQuiz.toHtml();
+    quizPreview.innerHTML = String(parsedContent);
   });
 
   imagenesInput.addEventListener("change", async () => {
     const files = imagenesInput.files;
     if (files) {
-      await cafeQuiz.fileHandler.addImages(files);
-      displayImagesNames();
+      await cafeQuiz.fileHandler.addImages(files).then(() => {
+        displayImagesNames();
+      });
     }
   });
 
@@ -76,15 +80,53 @@ document.addEventListener("DOMContentLoaded", async () => {
     const rawHtml = String(await cafeQuiz.toHtml());
     cafeQuiz.fileHandler.downloadPDF(rawHtml, selectTheme.value);
   });
+
+  const examplePaes = document.getElementById("example-paes");
+  const exampleCultura = document.getElementById("example-cultura");
+
+  examplePaes?.addEventListener("click", async () => {
+    const newQuiz = await loadExamples("./examples/PAES-m1.md", [
+      "./examples/paes/grafico-alt-1.png",
+      "./examples/paes/grafico-alt-2.png",
+      "./examples/paes/grafico-alt-3.png",
+      "./examples/paes/grafico-alt-4.png",
+      "./examples/paes/precios.png",
+      "./examples/paes/pregunta-circulos-alt1.png",
+      "./examples/paes/pregunta-circulos-alt2.png",
+      "./examples/paes/pregunta-circulos-alt3.png",
+      "./examples/paes/pregunta-circulos-alt4.png",
+      "./examples/paes/pregunta-circulos.png",
+      "./examples/paes/secuencia1.png",
+    ]);
+    cafeQuiz = newQuiz;
+    await cafeQuiz.initialize();
+    const parsedContent = await cafeQuiz.toHtml();
+    quizPreview.innerHTML = String(parsedContent);
+    displayImagesNames();
+    quizEditor.value = cafeQuiz.markdownContent!;
+  });
+
+  exampleCultura?.addEventListener("click", async () => {
+    const newQuiz = await loadExamples("./examples/cultura-general.md");
+    cafeQuiz = newQuiz;
+    await cafeQuiz.initialize();
+    const parsedContent = await cafeQuiz.toHtml();
+    quizPreview.innerHTML = String(parsedContent);
+    displayImagesNames();
+    quizEditor.value = cafeQuiz.markdownContent!;
+  });
 });
 
 async function displayImagesNames() {
-  const fileNames = await cafeQuiz.fileHandler.getFileNames("media");
   const fileNamesDisplay = document.getElementById("images-names-display");
+
+  const fileNames = await cafeQuiz.fileHandler.getFileNames("media");
   if (!fileNamesDisplay) return;
+  fileNamesDisplay.innerHTML = "";
   fileNames.forEach((fileName) => {
-    fileName = fileName.substring(0, 15) + "...";
+    fileName = fileName.substring(0, 20) + "...";
     const li = document.createElement("li");
+    li.classList.add("text-sm");
     li.textContent = fileName;
     fileNamesDisplay?.appendChild(li);
   });

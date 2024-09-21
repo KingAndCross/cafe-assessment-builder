@@ -48,14 +48,14 @@
 
 /* choices */
 
-.cafe-quiz .cafe-assessment-item ol {
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices {
   margin-left: 1em;
 }
-.cafe-quiz .cafe-assessment-item ol li {
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices li {
   margin-bottom: 1em;
 }
 
-.cafe-quiz .cafe-assessment-item ol li::before {
+.cafe-quiz .cafe-assessment-item ol.cafe-MC-item-choices li::before {
   content: counter(choice-counter, upper-alpha);
   background-color: #ccc;
   padding: 0 0.2em;

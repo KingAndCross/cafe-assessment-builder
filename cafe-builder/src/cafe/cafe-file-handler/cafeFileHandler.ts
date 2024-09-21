@@ -41,15 +41,14 @@ class CafeFileHandler {
     this.zip.file(`${quizName}.md`, markdownString);
   }
 
-  async addImages(images: FileList) {
+  async addImages(images: FileList | File[]) {
     const mediaFolder = this.zip.folder("media");
     if (!mediaFolder) {
       throw new Error("Failed to create media folder in zip file");
     }
     const imagePromises = Array.from(images).map(async (image) => {
       const arrayBuffer = await image.arrayBuffer();
-      const imageName = image.name.replace(/[^a-zA-Z0-9._]/g, "_");
-      console.log(imageName);
+      const imageName = image.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       mediaFolder.file(imageName, arrayBuffer);
     });
     await Promise.all(imagePromises);
