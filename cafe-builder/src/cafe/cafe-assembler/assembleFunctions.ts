@@ -1,28 +1,19 @@
 import type { Element as HastElement, Root as HastRoot } from "hast";
-import { select, selectAll } from "hast-util-select";
+import { selectAll, matches } from "hast-util-select";
+import { isElement } from "hast-util-is-element";
 import _ from "lodash";
-import {
-  ModifyItemsOptions,
-  modifyItems,
-  modifySections,
-} from "./assembleUtils";
+import { ModifyItemsOptions, modifySections } from "./assembleUtils";
 
 import { AssembleConfig } from "./cafeAssembler";
+import {
+  choicesClassName,
+  sectionClassName,
+} from "../cafe-config/cafeConstants";
 /* ============================================ */
 
 type AssemblyHandler = (tree: HastRoot, value: any) => void;
 
 /* ============================================ */
-
-function shuffleItemChoices(element: HastElement) {
-  const choices = select(".choices", element) as HastElement;
-  if (choices) {
-    const children = choices.children.filter(
-      (child) => child.type === "element"
-    );
-    choices.children = _.shuffle(children);
-  }
-}
 
 function selectRandomSubsetOfItems(
   element: HastElement,
@@ -40,11 +31,47 @@ function selectRandomSubsetOfItems(
 /* =================================================== */
 
 function randomizeItemsChoices(tree: HastElement | HastRoot) {
-  modifyItems(tree, shuffleItemChoices);
+  const choices = selectAll(`.${choicesClassName}`, tree) as HastElement[];
+  if (!choices || choices.length === 0) {
+    throw new Error("No choices found");
+  }
+  choices.forEach((choice) => {
+    const children = choice.children.filter((e) => isElement(e));
+    choice.children = _.shuffle(children);
+  });
 }
 
-function randomizeSections(tree: HastElement | HastRoot) {
-  tree.children = _.shuffle(tree.children);
+function randomizeItemsInSections(tree: HastElement | HastRoot) {
+  const sections = selectAll(`.${sectionClassName}`, tree) as HastElement[];
+  if (!sections || sections.length === 0) {
+    throw new Error("No sections found");
+  }
+  sections.forEach((section) => {
+    const items = selectAll(`.cafe-assessment-item`, section) as HastElement[];
+    section.children = _.shuffle(items);
+  });
+}
+
+function selectSections(
+  tree: HastElement | HastRoot,
+  sectionsToKeep: (string | number)[]
+) {
+  if (!sectionsToKeep || sectionsToKeep.length === 0) {
+    throw new Error("sectionsToKeep must be an array of section numbers");
+  }
+  let currSection = -1;
+  tree.children = tree.children.filter((node) => {
+    if (matches(`.${sectionClassName}`, node)) {
+      currSection++;
+      return sectionsToKeep.includes(String(currSection));
+    }
+    return true;
+  });
+}
+
+function randomizeSections(_: HastElement | HastRoot) {
+  console.log("por implementar");
+  return;
 }
 
 function sampleItemsInSections(
@@ -72,7 +99,9 @@ function selectItemsInSections(
 
 const assemblyFunctions: Record<keyof AssembleConfig, AssemblyHandler> = {
   randomizeItemsChoices: randomizeItemsChoices,
+  randomizeItemsInSections: randomizeItemsInSections,
   randomizeSections: randomizeSections,
+  selectSections: selectSections,
   sampleSize: () => {},
   sampleItemsInSections: sampleItemsInSections,
   selectItemsInSections: selectItemsInSections,

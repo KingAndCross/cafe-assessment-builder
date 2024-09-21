@@ -4,8 +4,10 @@ import { assemblyFunctions } from "./assembleFunctions";
 
 type AssembleConfig = {
   randomizeItemsChoices?: boolean;
+  randomizeItemsInSections?: boolean;
   randomizeSections?: boolean;
   sampleSize?: number;
+  selectSections?: (number | string)[];
   sampleItemsInSections?: number[] | Record<string, number>;
   selectItemsInSections?: number[][] | Record<string, number[]>;
 };

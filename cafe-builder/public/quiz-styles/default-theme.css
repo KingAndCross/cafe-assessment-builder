@@ -9,16 +9,15 @@
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-feature-settings: normal;
   font-variation-settings: normal;
+  padding: 1em;
+  padding-bottom: 2em;
+  position: relative;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
-.cafe-quiz,
 .cafe-quiz :is(blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre) {
   margin: 0;
-}
-
-.cafe-quiz {
-  position: relative;
-  font-size: 16px;
 }
 
 .special-footer {
@@ -26,6 +25,10 @@
 }
 
 @media print {
+  .cafe-quiz {
+    margin: 1em;
+    font-size: 16px;
+  }
   .special-footer {
     display: block;
     position: absolute;
@@ -41,7 +44,8 @@ Header styling
 */
 
 .cafe-quiz .cafe-header {
-  margin: 2em 2em;
+  margin-top: 1em;
+  margin-bottom: 2em;
 }
 
 .cafe-quiz .cafe-header h1 {
@@ -69,22 +73,25 @@ Header styling
 
 .cafe-quiz .cafe-assessment-section {
   position: relative;
+  margin-bottom: 2em;
 }
 
-.cafe-quiz .cafe-assessment-section h2.cafe-section-heading {
+.cafe-quiz .cafe-assessment-section .cafe-section-heading {
   position: relative;
   font-size: 1.1em;
-  margin-left: 2em;
+  margin-left: 0em;
+  padding-left: 0.2em;
   margin-bottom: 1em;
   counter-increment: section-counter;
   counter-set: item-counter 0;
 }
 
-.cafe-quiz .cafe-assessment-section h2.cafe-section-heading::before {
+.cafe-quiz .cafe-assessment-section .cafe-section-heading::before {
   position: absolute;
   font-weight: bold;
   content: counter(section-counter, upper-roman) ". ";
-  left: -1em;
+  transform: translateX(-100%);
+  left: 0em;
 }
 
 /* ===================== */
@@ -97,7 +104,7 @@ Header styling
   break-inside: avoid;
   font-size: 1em;
   margin-bottom: 2em;
-  margin-left: 2em;
+  margin-left: 0;
 }
 
 .cafe-quiz .cafe-assessment-item::before {
@@ -108,14 +115,13 @@ Header styling
 
 .cafe-quiz .cafe-assessment-item > h3[class^="cafe-question-heading-"] {
   margin-left: 2em;
-  margin-bottom: 0.8em;
+  margin-bottom: 2em;
   font-weight: normal;
 }
 
 /* choices */
 
 .cafe-quiz .cafe-assessment-item ol {
-  margin-left: 2em;
   list-style: none;
   counter-reset: choice-counter;
 }
@@ -123,13 +129,20 @@ Header styling
   counter-increment: choice-counter;
   display: list-item;
   position: relative;
-  padding-left: 1.5em;
+  margin-left: 1.5em;
+  margin-bottom: 0.3em;
+}
+
+@media print {
+  .cafe-quiz .cafe-assessment-item ol li {
+    margin-left: 0em;
+  }
 }
 
 .cafe-quiz .cafe-assessment-item ol li::before {
   content: counter(choice-counter, lower-alpha) ")";
   position: absolute;
-  left: 0;
+  left: -1.4em;
 }
 
 /* Answer boxes */
@@ -170,6 +183,12 @@ Math Katex styling
 .cafe-quiz p:has(> .katex:only-child) {
   text-align: center;
   font-size: 1.2em;
+}
+
+.cafe-quiz li :is(.katex-display, .katex, p) {
+  display: inline;
+  text-align: start;
+  width: auto;
 }
 
 /* 

@@ -1,5 +1,5 @@
 export const markdownExample = `
-# Prueba de contenidos 
+# Prueba de cultura general
 ## 6° básico
 
 Nombre:
@@ -7,61 +7,122 @@ Nombre:
 Curso:
 
 > **Instrucciones**  
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-
----
-# Esta sección tiene título
-
-#? ¿Cuál es la capital de Chile?
-
-- Santiago
-- Buenos Aires
-- Lima
-
-#? ¿Cuál es la capital de Argentina?
-
-- Santiago
-- Buenos Aires
-- Lima
+> A continuación encontrarás preguntas de diferentes temas de cultura general. Sigue las indicaciones y selecciona o escribe la respuesta correcta según corresponda.
 
 ---
 
-#? ¿Cuál es la capital de Estados Unidos?
+## Geografía y cultura general
 
-- Washington
-- New York
-- Los Angeles
-- Miami
+#? ¿Cuál es la capital de España?
 
-## Esta sección tiene título y cierre implícito
+- Madrid
+- Barcelona
+- Sevilla
+- Valencia
 
+#? ¿Cuál es el río más largo del mundo?
 
-#? ¿Cómo se llama esta expresión?
+- Amazonas
+- Nilo
+- Yangtsé
+- Misisipi
 
-- Washington
-- New York
-- Los Angeles
-- Miami
+#? ¿En qué continente se encuentra Egipto?
+
+- África
+- Asia
+- Europa
+- América
 
 ---
 
-#? Resuelve las siguientes sumas de fracciones
+## Historia y arte
 
+#? ¿Quién escribió "Don Quijote de la Mancha"?
 
-- $$\\frac{1}{2} + \\frac{1}{3}=$$
-- $$\\frac{2}{3} + \\frac{1}{6}=$$
-- $$\\frac{3}{4} + \\frac{1}{8}=$$
-- $$\\frac{5}{6} + \\frac{1}{9}=$$
-- $$\\frac{2}{5} + \\frac{3}{10}=$$
-- $$\\frac{4}{7} + \\frac{2}{14}=$$
-- $$\\frac{7}{9} + \\frac{5}{18}=$$
-- $$\\frac{7}{9} + \\frac{5}{18}=$$
-{:.col-2 .text-lg}
+- Miguel de Cervantes
+- William Shakespeare
+- Gabriel García Márquez
+- J.R.R. Tolkien
+
+#? ¿Quién pintó "La última cena"?
+
+- Leonardo da Vinci
+- Pablo Picasso
+- Vincent van Gogh
+- Salvador Dalí
+
+#? ¿En qué año cayó el Muro de Berlín?
+
+- 1985
+- 1989
+- 1991
+- 1995
+
 ---
 
-#?? Cuéntame algo
+## Ciencias
 
-#??? Qué eventos fueron fundamentales para la independencia de Chile?
+#? ¿Qué fórmula representa la ecuación de Einstein?
 
+- $ E = mc^2 $
+- $ F = ma $
+- $ a^2 + b^2 = c^2 $
+- $ PV = nRT $
+
+#? ¿Cuál es el planeta más cercano al Sol?
+
+- Mercurio
+- Venus
+- Tierra
+- Marte
+
+#? ¿Cuál es el elemento químico más abundante en la atmósfera?
+
+- Oxígeno
+- Nitrógeno
+- Hidrógeno
+- Dióxido de carbono
+
+---
+
+## Política y deportes
+
+#? ¿Quién fue el primer presidente de los Estados Unidos?
+
+- George Washington
+- Abraham Lincoln
+- Thomas Jefferson
+- John Adams
+
+#? ¿Qué país ganó la Copa Mundial de Fútbol en 2018?
+
+- Alemania
+- Argentina
+- Brasil
+- Francia
+
+#? ¿Qué país tiene la mayor población del mundo?
+
+- India
+- Estados Unidos
+- China
+- Brasil
+
+---
+
+## Preguntas de desarrollo
+
+#?? Escribe una breve definición de "democracia".
+
+#?? Describe brevemente la función del sistema circulatorio en el cuerpo humano.
+
+---
+
+## Preguntas de análisis
+
+#??? Explica los principales eventos que llevaron al descubrimiento de América en 1492.
+
+#??? Analiza las causas y consecuencias de la Primera Guerra Mundial.
 
 `;

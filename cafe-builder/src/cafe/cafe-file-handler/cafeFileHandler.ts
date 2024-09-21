@@ -118,7 +118,6 @@ class CafeFileHandler {
       : ["default-theme", cssStyle];
 
     const basePath = import.meta.env.BASE_URL + "quiz-styles/";
-    console.log(basePath);
     themeNames.forEach((themeName) => {
       const cssLink = iframeDoc.createElement("link");
       cssLink.href = `${basePath}${themeName}.css`;
