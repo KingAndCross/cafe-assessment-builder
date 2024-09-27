@@ -19,7 +19,7 @@ function formatItems(
   if (checkSectionStructure(parentElement, structureConditions)) {
     let children = getOnlyElementsChildren(parentElement);
     format(children);
-    parentElement.children = [...children]; // Ensure the parent children is updated
+    parentElement.children = [...children];
   }
 }
 

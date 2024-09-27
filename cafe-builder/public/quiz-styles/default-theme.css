@@ -292,7 +292,7 @@ Blockquote styling
 
 /* grid placement */
 
-ul[class^="col-"] {
+ul[class*="col-"] {
   list-style: none;
   display: grid;
   margin: 0 3em;
