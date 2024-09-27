@@ -125,7 +125,7 @@ Header styling
   left: 1em;
 }
 
-.cafe-quiz .cafe-assessment-item > h3[class^="cafe-question-heading-"] {
+.cafe-quiz .cafe-assessment-item > h3[class*="cafe-question-heading-"] {
   margin-left: 2em;
   margin-bottom: 2em;
   font-weight: normal;

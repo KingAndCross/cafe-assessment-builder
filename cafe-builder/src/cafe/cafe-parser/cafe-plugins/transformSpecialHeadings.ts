@@ -2,6 +2,7 @@ import type { Root as HastRoot, Element as HastElement } from "hast";
 import { visitHastElementChildren } from "../../utils/utils";
 import { isElement } from "hast-util-is-element";
 import { matches } from "hast-util-select";
+import _ from "lodash";
 import {
   specialHeadingsClassNames,
   SpecialHeadings,
@@ -38,7 +39,10 @@ const transformSectionHeadings = () => (tree: HastRoot) => {
     // add the class to the headings and normalize them to h2
     if (matches("h1, h2", node)) {
       node.tagName = "h2";
-      node.properties.className = sectionHeadingClassName;
+      node.properties.className = _.castArray(
+        node.properties.className || []
+      ) as string[];
+      node.properties.className.push(sectionHeadingClassName);
     }
   });
 };
@@ -76,6 +80,12 @@ function handleSpecialHeadings(paragraphNode: ParagraphNode) {
       specialHeadingClass.length
     );
     paragraphNode.tagName = "h3";
-    paragraphNode.properties.className = specialHeadings[specialHeadingClass];
+
+    paragraphNode.properties.className = _.castArray(
+      paragraphNode.properties.className || []
+    ) as string[];
+    paragraphNode.properties.className.push(
+      specialHeadings[specialHeadingClass]
+    );
   }
 }

@@ -4,7 +4,7 @@ import type { StructureCondition } from "./checkSectionStructure";
 import { getOnlyElementsChildren } from "../../utils/utils";
 import { h } from "hastscript";
 import { selectAll } from "hast-util-select";
-
+import _ from "lodash";
 import {
   specialHeadingsClassNames,
   choicesClassName,
@@ -41,7 +41,11 @@ function formatMCItems(parentElement: HastElement) {
       ];
       if (conditions.every((condition) => condition)) {
         lastChildren.tagName = "ol";
-        lastChildren.properties.className = choicesClassName;
+
+        lastChildren.properties.className = _.castArray(
+          lastChildren.properties.className || []
+        ) as string[];
+        lastChildren.properties.className.push(choicesClassName);
       }
     }
   );
